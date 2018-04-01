@@ -1,0 +1,29 @@
+version: '3'
+services:
+  tkhdb:
+    image: mongo
+    expose:
+      - '27017'
+    # how does this change if I want to push to a production situation?
+    volumes:
+      - /data/db:/data/db
+  
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  tkh:
+    image: kenth/thomaskenthurd:latest
+    links:
+      - tkhdb
+    depends_on:
+      - tkhdb
+    expose: 
+      - '80'
+    ports:
+      - '80:8000'
+    environment:
+      - VIRTUAL_HOST=redundantparadox.com
