@@ -22,8 +22,8 @@ services:
     depends_on:
       - tkhdb
     expose: 
-      - '80'
+      - '8000'
     ports:
-      - '80:8000'
+      - '8000:8000'
     environment:
       - VIRTUAL_HOST=redundantparadox.com
