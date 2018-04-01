@@ -16,7 +16,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   tkh:
-    image: kenth/thomaskenthurd:latest
+    image: kenth/thomaskenthurdcom:latest
     links:
       - tkhdb
     depends_on:
