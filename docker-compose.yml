@@ -21,7 +21,7 @@ services:
       - '8000:8000'
     environment:
       - VIRTUAL_HOST=redundantparadox.com
-      - LETSENCRYPT_HOST=redundantparadox.com,www.redundantparadox.com
+      - LETSENCRYPT_HOST=redundantparadox.com
       - LETSENCRYPT_EMAIL=kenth3@gmail.com
     restart: always
 
