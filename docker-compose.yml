@@ -10,7 +10,7 @@ services:
     restart: always
   
   tkh:
-    image: kenth/tkh:latest
+    image: kenth/thomaskenthurdcom:latest
     links:
       - tkhdb
     depends_on:
