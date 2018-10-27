@@ -20,8 +20,8 @@ services:
     ports:
       - '8000:8000'
     environment:
-      - VIRTUAL_HOST=thomaskenthurd.com
-      - LETSENCRYPT_HOST=thomaskenthurd.com
+      - VIRTUAL_HOST=thomaskenthurd.com,www.thomaskenthurd.com
+      - LETSENCRYPT_HOST=thomaskenthurd.com,www.thomaskenthurd.com
       - LETSENCRYPT_EMAIL=kenth3@gmail.com
     restart: always
 
