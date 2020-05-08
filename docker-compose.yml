@@ -1,46 +1,29 @@
-version: '2'
+version: "2"
 services:
-  
   tkhdb:
     image: mongo:3.4.14
     expose:
-      - '27017'
+      - "27017"
     volumes:
       - /data/db:/data/db
     restart: always
-  
-  tkh:
-    image: kenth/thomaskenthurdcom:latest
-    links:
-      - tkhdb
+
+  tkh-api:
+    image: kenth/tkh-api:latest
     depends_on:
       - tkhdb
-    expose: 
-      - '8000'
+    expose:
+      - "8000"
     ports:
-      - '8000:8000'
-    environment:
-      - VIRTUAL_HOST=www.thomaskenthurd.com,thomaskenthurd.com
-      - LETSENCRYPT_HOST=www.thomaskenthurd.com,thomaskenthurd.com
-      - LETSENCRYPT_EMAIL=kenth3@gmail.com
+      - "8000:8080"
     restart: always
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
+  tkh-web:
+    image: kenth/tkh-web:latest
+    depends_on:
+      - tkh-api
+    expose:
+      - "9000"
     ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - '/etc/nginx/vhost.d'
-      - '/usr/share/nginx/html'
-      - '/var/run/docker.sock:/tmp/docker.sock:ro'
-      - '/etc/nginx/certs'
-    restart: always
-
-  letsencrypt-nginx-proxy-companion:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    volumes_from:
-      - 'nginx-proxy'
+      - "9000:8080"
     restart: always

@@ -25,8 +25,8 @@ onHostRule = true
   [acme.httpChallenge]
   entryPoint = "http"
 [[acme.domains]]
-  main = "*.thomaskenthurd.com"
-  sans = ["thomaskenthurd.com"]
+  main = "thomaskenthurd.com"
+  sans = ["thomaskenthurd.com", "monitor.thomaskenthurd.com", "api.thomaskenthurd.com", "web.thomaskenthurd.com"]
 
 
 [docker]
