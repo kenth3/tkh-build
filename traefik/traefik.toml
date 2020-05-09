@@ -1,3 +1,6 @@
+debug = false
+
+logLevel = "ERROR"
 defaultEntryPoints = ["http", "https"]
 
 [entryPoints]
@@ -14,22 +17,29 @@ defaultEntryPoints = ["http", "https"]
       [entryPoints.dashboard.auth.basic]
         users = ["[REPLACE THIS ON SERVER]"]
 
+[retry]
+
 [api]
 entrypoint="dashboard"
 
-[acme]
-email = "kenth3@gmail.com"
-storage = "/acme.json"
-entryPoint = "https"
-onHostRule = true
-  [acme.httpChallenge]
-  entryPoint = "http"
-[[acme.domains]]
-  main = "thomaskenthurd.com"
-  sans = ["thomaskenthurd.com", "monitor.thomaskenthurd.com", "api.thomaskenthurd.com", "web.thomaskenthurd.com"]
-
 
 [docker]
+endpoint = "unix:///var/run/docker.sock"
 domain = "thomaskenthurd.com"
 watch = true
+exposedByDefault = false
 network = "web"
+
+[acme]
+email = "kenth3@gmail.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+[acme.httpChallenge]
+entryPoint = "http"
+
+  
+#[[acme.domains]]
+#  main = "thomaskenthurd.com"
+#  sans = ["thomaskenthurd.com", "www.thomaskenthurd.com", "monitor.thomaskenthurd.com", "api.thomaskenthurd.com", "web.thomaskenthurd.com"]
+
