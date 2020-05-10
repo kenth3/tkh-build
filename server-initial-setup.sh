@@ -2,6 +2,7 @@
 # Need to make this executable.
 
 docker network create web
+docker network create internal
 
 touch /tkh-build/traefik/acme.json
 

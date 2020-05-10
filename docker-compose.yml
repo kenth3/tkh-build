@@ -1,29 +1,27 @@
 version: "2"
+
 services:
-  tkhdb:
-    image: mongo:3.4.14
-    expose:
-      - "27017"
+  traefik:
+    image: traefik:1.7.2-alpine
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - web
     volumes:
-      - /data/db:/data/db
-    restart: always
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tkh-build/traefik.toml:/traefik.toml
+      - /tkh-build/acme.json:/acme.json
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:monitor.thomaskenthurd.com"
+      - "traefik.basic.port=8080"
+    container_name: traefik
 
-  tkh-api:
-    image: kenth/tkh-api:latest
-    depends_on:
-      - tkhdb
-    expose:
-      - "8000"
-    ports:
-      - "8000:8080"
-    restart: always
-
-  tkh-web:
-    image: kenth/tkh-web:latest
-    depends_on:
-      - tkh-api
-    expose:
-      - "9000"
-    ports:
-      - "9000:8080"
-    restart: always
+networks:
+  web:
+    external: true
+  internal:
+    external: false
